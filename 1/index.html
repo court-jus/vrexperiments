@@ -11,14 +11,14 @@
       </a-assets>
       <a-box id="lecube" material="src: #texture1" position="-1 1 -15" rotation="0 0 0" scale="2 2" color="#4CC3D9"></a-box>
       <a-box position="0 0 0" rotation="0 0 0" scale="0.1 0.1 0.1" color="#4CC3D9"></a-box>
-      <a-plane position="0 0 0" rotation="-90 0 0" width="400" height="400" color="#7BC8A4"></a-plane>
-      <a-sky src="#nightSky" theta-length="90" radius="30"></a-sky>
-      <a-entity oculus-touch-controls="hand: left" thumbstick-logging></a-entity>
-      <a-entity oculus-touch-controls="hand: right" thumbstick-logging></a-entity>
+      <a-plane position="0 0 0" rotation="-90 0 0" width="4000" height="4000" color="#7BC8A4"></a-plane>
+      <a-sky src="#nightSky" theta-length="90" radius="300"></a-sky>
       <a-entity id="cameraRig">
-        <a-camera id="camera">
-          <a-text value="Hello" id="debug" side="double" position="-1 1 -5" rotation="0 0 0" scale="2 2" color="#4CC3D9"></a-text>
-        </a-camera>
+          <a-entity oculus-touch-controls="hand: left" thumbstick-logging></a-entity>
+          <a-entity oculus-touch-controls="hand: right" thumbstick-logging></a-entity>
+          <a-camera id="camera">
+            <a-text value="Hello" id="debug" side="double" position="-1 1 -5" rotation="0 0 0" scale="2 2" color="#4CC3D9"></a-text>
+          </a-camera>
       </a-entity>
     </a-scene>
     <script type="text/javascript" src="index.js"></script>
