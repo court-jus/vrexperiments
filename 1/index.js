@@ -4,7 +4,7 @@ const newPosition = new THREE.Vector3();
 const oldPosition = new THREE.Vector3();
 const oldOrientation = new THREE.Quaternion();
 console.log("cam", camera);
-const VERSION = "15";
+const VERSION = "17";
 const velocity = {
     forward: 0,
     lateral: 0,
@@ -24,22 +24,8 @@ AFRAME.registerComponent('thumbstick-logging', {
         this.el.addEventListener("triggerdown", this.triggerPressed);
     },
     logThumbstick: function (evt) {
-        if (evt.detail.y > 0.95) {
-            velocity.forward += evt.detail.y * 0.05;
-            doLog("DOWN " + velocity.forward.toString());
-        }
-        if (evt.detail.y < -0.95) {
-            velocity.forward += evt.detail.y * 0.05;
-            doLog("UP " + velocity.forward.toString());
-        }
-        if (evt.detail.x < -0.95) {
-            velocity.lateral += evt.detail.y * 0.05;
-            doLog("LEFT " + velocity.lateral.toString());
-        }
-        if (evt.detail.x > 0.95) {
-            velocity.lateral += evt.detail.y * 0.05;
-            doLog("RIGHT " + velocity.lateral.toString());
-        }
+        velocity.forward = evt.detail.y / 2;
+        velocity.lateral = evt.detail.x / 2;
     },
     triggerPressed: function (evt) {
         doLog( "Trigger");
