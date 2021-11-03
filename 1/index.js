@@ -1,15 +1,16 @@
 const text = document.getElementById("debug");
-const camera = document.getElementById("cameraRig");
+const player = document.getElementById("player");
 const newPosition = new THREE.Vector3();
 const oldPosition = new THREE.Vector3();
 const oldOrientation = new THREE.Quaternion();
-console.log("cam", camera);
-const VERSION = "19";
+const newOrientation = new THREE.Quaternion();
+const VERSION = "25";
 const velocity = {
     forward: 0,
     lateral: 0,
     vertical: 0
 };
+let playerAngle = 0;
 
 text.setAttribute("value", "Loading.... " + VERSION);
 
@@ -18,32 +19,38 @@ const doLog = (message) => {
     text.setAttribute("value", message);
 }
 
-AFRAME.registerComponent('thumbstick-logging', {
+AFRAME.registerComponent('thumbstick-moving', {
     init: function () {
-        this.el.addEventListener('thumbstickmoved', this.logThumbstick);
-        this.el.addEventListener("triggerdown", this.triggerPressed);
+        this.el.addEventListener('thumbstickmoved', this.handleThumbstick);
     },
-    logThumbstick: function (evt) {
-        velocity.forward = evt.detail.y / 4;
-        velocity.lateral = evt.detail.x / 4;
-    },
-    triggerPressed: function (evt) {
-        doLog( "Trigger");
-        velocity.forward = 0;
-        velocity.lateral = 0;
-        velocity.vertical = 0;
+    handleThumbstick: function (evt) {
+        velocity.forward = evt.detail.y / 10;
+        velocity.lateral = evt.detail.x / 10;
     },
     tick: function () {
-        this.updateCameraPosition();
+        this.updatePlayerPosition();
     },
-    updateCameraPosition: (function () {
+    updatePlayerPosition: (function () {
         return function () {
-            camera.object3D.getWorldPosition(oldPosition);
-            camera.object3D.getWorldQuaternion(oldOrientation);
-            oldPosition.copy(newPosition);
-            newPosition.x += velocity.lateral;
-            newPosition.z += velocity.forward;
-            camera.setAttribute("position", newPosition);
+            player.object3D.position.x += velocity.lateral;
+            player.object3D.position.z += velocity.forward;
+        };
+    })()
+});
+
+AFRAME.registerComponent('thumbstick-rotating', {
+    init: function () {
+        this.el.addEventListener('thumbstickmoved', this.handleThumbstick);
+    },
+    handleThumbstick: function (evt) {
+        playerAngle -= evt.detail.x / 10;
+    },
+    tick: function () {
+        this.updatePlayerDirection();
+    },
+    updatePlayerDirection: (function () {
+        return function () {
+            player.object3D.quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), playerAngle);
         };
     })()
 });
