@@ -7,10 +7,12 @@
     <a-scene>
       <a-assets>
         <img id="texture1" src="assets/TheFirstTree_ending.png?v=1">
+        <img id="nightSky" src="https://cdn.aframe.io/a-painter/images/sky.jpg">
       </a-assets>
       <a-box material="src: #texture1" position="-1 1 -15" rotation="0 0 0" scale="2 2" color="#4CC3D9"></a-box>
-      <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
-      <a-sky color="cyan"></a-sky>
+      <a-box position="0 0 0" rotation="0 0 0" scale="0.1 0.1 0.1" color="#4CC3D9"></a-box>
+      <a-plane position="0 0 0" rotation="-90 0 0" width="400" height="400" color="#7BC8A4"></a-plane>
+      <a-sky src="#nightSky" theta-length="90" radius="30"></a-sky>
       <a-entity oculus-touch-controls="hand: left" thumbstick-logging></a-entity>
       <a-entity oculus-touch-controls="hand: right" thumbstick-logging></a-entity>
       <a-text value="Hello" id="debug" side="double" position="-1 1 -5" rotation="0 0 0" scale="2 2" color="#4CC3D9"></a-text>

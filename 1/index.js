@@ -1,5 +1,5 @@
 const text = document.getElementById("debug");
-const VERSION = "4";
+const VERSION = "6";
 text.setAttribute("value", "Loading.... " + VERSION);
 
 const doLog = (message) => {
