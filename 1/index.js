@@ -1,6 +1,10 @@
 const text = document.getElementById("debug");
-const camera = document.getElementById("camera");
-const VERSION = "11";
+const camera = document.getElementById("cameraRig");
+const newPosition = new THREE.Vector3();
+const oldPosition = new THREE.Vector3();
+const oldOrientation = new THREE.Quaternion();
+console.log("cam", camera);
+const VERSION = "15";
 const velocity = {
     forward: 0,
     lateral: 0,
@@ -21,19 +25,19 @@ AFRAME.registerComponent('thumbstick-logging', {
     },
     logThumbstick: function (evt) {
         if (evt.detail.y > 0.95) {
-            velocity.forward += evt.detail.y;
+            velocity.forward += evt.detail.y * 0.05;
             doLog("DOWN " + velocity.forward.toString());
         }
         if (evt.detail.y < -0.95) {
-            velocity.forward += evt.detail.y;
+            velocity.forward += evt.detail.y * 0.05;
             doLog("UP " + velocity.forward.toString());
         }
         if (evt.detail.x < -0.95) {
-            velocity.lateral += evt.detail.y;
+            velocity.lateral += evt.detail.y * 0.05;
             doLog("LEFT " + velocity.lateral.toString());
         }
         if (evt.detail.x > 0.95) {
-            velocity.lateral += evt.detail.y;
+            velocity.lateral += evt.detail.y * 0.05;
             doLog("RIGHT " + velocity.lateral.toString());
         }
     },
@@ -42,7 +46,20 @@ AFRAME.registerComponent('thumbstick-logging', {
         velocity.forward = 0;
         velocity.lateral = 0;
         velocity.vertical = 0;
-    }
+    },
+    tick: function () {
+        this.updateCameraPosition();
+    },
+    updateCameraPosition: (function () {
+        return function () {
+            camera.object3D.getWorldPosition(oldPosition);
+            camera.object3D.getWorldQuaternion(oldOrientation);
+            oldPosition.copy(newPosition);
+            newPosition.x += velocity.lateral;
+            newPosition.z += velocity.forward;
+            camera.setAttribute("position", newPosition);
+        };
+    })()
 });
 
 setTimeout(() => {
