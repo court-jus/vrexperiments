@@ -15,8 +15,9 @@
       <a-sky src="#nightSky" theta-length="90" radius="30"></a-sky>
       <a-entity oculus-touch-controls="hand: left" thumbstick-logging></a-entity>
       <a-entity oculus-touch-controls="hand: right" thumbstick-logging></a-entity>
-      <a-text value="Hello" id="debug" side="double" position="-1 1 -5" rotation="0 0 0" scale="2 2" color="#4CC3D9"></a-text>
-      
+      <a-camera id="camera">
+        <a-text value="Hello" id="debug" side="double" position="-1 1 -5" rotation="0 0 0" scale="2 2" color="#4CC3D9"></a-text>
+      </a-camera>
     </a-scene>
     <script type="text/javascript" src="index.js"></script>
   </body>
