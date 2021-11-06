@@ -4,12 +4,8 @@ const newPosition = new THREE.Vector3();
 const oldPosition = new THREE.Vector3();
 const oldOrientation = new THREE.Quaternion();
 const newOrientation = new THREE.Quaternion();
-const VERSION = "25";
-const velocity = {
-    forward: 0,
-    lateral: 0,
-    vertical: 0
-};
+const VERSION = "30";
+const velocity = new THREE.Vector3(0, 0, 0);
 let playerAngle = 0;
 
 text.setAttribute("value", "Loading.... " + VERSION);
@@ -24,18 +20,30 @@ AFRAME.registerComponent('thumbstick-moving', {
         this.el.addEventListener('thumbstickmoved', this.handleThumbstick);
     },
     handleThumbstick: function (evt) {
-        velocity.forward = evt.detail.y / 10;
-        velocity.lateral = evt.detail.x / 10;
+        velocity.z = evt.detail.y / 10;
+        velocity.x = evt.detail.x / 10;
     },
     tick: function () {
         this.updatePlayerPosition();
     },
     updatePlayerPosition: (function () {
         return function () {
-            player.object3D.position.x += velocity.lateral;
-            player.object3D.position.z += velocity.forward;
+            const rotatedVelocity = new THREE.Vector3();
+            rotatedVelocity.copy(velocity);
+            rotatedVelocity.applyAxisAngle(new THREE.Vector3(0,1,0), playerAngle);
+            player.object3D.position.x += rotatedVelocity.x;
+            player.object3D.position.z += rotatedVelocity.z;
         };
     })()
+});
+
+AFRAME.registerComponent('y-reloads', {
+    init: function () {
+        this.el.addEventListener('ybuttondown', this.handleybuttondown);
+    },
+    handleybuttondown: function (evt) {
+        window.location.reload();
+    }
 });
 
 AFRAME.registerComponent('thumbstick-rotating', {
