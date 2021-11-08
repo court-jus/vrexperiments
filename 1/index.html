@@ -6,6 +6,7 @@
   <body>
     <a-scene stats>
       <a-assets>
+        <a-asset-item id="housemdl" src="assets/maison.glb"></a-asset-item>
         <img id="texture1" src="assets/TheFirstTree_ending.png?v=1">
         <img id="nightSky" src="https://cdn.aframe.io/a-painter/images/sky.jpg">
       </a-assets>
@@ -13,16 +14,19 @@
       <a-box position="0 0 0" rotation="0 0 0" scale="0.1 0.1 0.1" color="#4CC3D9"></a-box>
       <a-plane position="0 0 0" rotation="-90 0 0" width="4000" height="4000" color="#7BC8A4"></a-plane>
       <a-sky src="#nightSky" theta-length="90" radius="300"></a-sky>
-      <a-entity id="house">
-        <a-entity>
-          <a-box scale="4.5 2.5 1" position="2.75 1.25 -5.5" color="blue"></a-box>
-          <a-box scale="4.5 2.5 1" position="-2.75 1.25 -5.5" color="blue"></a-box>
-          <a-box scale="1 0.5 1" position="0 2.25 -5.5" color="blue"></a-box>
+      <a-entity gltf-model="#housemdl" position="-4.9 0 4.2"></a-entity>
+      <!--
+        <a-entity id="house">
+          <a-entity>
+            <a-box scale="4.5 2.5 1" position="2.75 1.25 -5.5" color="blue"></a-box>
+            <a-box scale="4.5 2.5 1" position="-2.75 1.25 -5.5" color="blue"></a-box>
+            <a-box scale="1 0.5 1" position="0 2.25 -5.5" color="blue"></a-box>
+          </a-entity>
+          <a-box scale="1 2.5 10" position="5.5 1.25 0"  color="lime" opacity="0.5"></a-box>
+          <a-box scale="1 2.5 10" position="-5.5 1.25 0"  color="orange" opacity="0.5"></a-box>
+          <a-box scale="10 2.5 1" position="0 1.25 5.5" color="pink" opacity="0.5"></a-box>
         </a-entity>
-        <a-box scale="1 2.5 10" position="5.5 1.25 0"  color="lime" opacity="0.5"></a-box>
-        <a-box scale="1 2.5 10" position="-5.5 1.25 0"  color="orange" opacity="0.5"></a-box>
-        <a-box scale="10 2.5 1" position="0 1.25 5.5" color="pink" opacity="0.5"></a-box>
-      </a-entity>
+      -->
 
       <a-entity id="player" rotation="0 -30 0">
         <a-entity id="posVec" position="0 0.8 0">

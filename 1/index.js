@@ -4,7 +4,7 @@ const newPosition = new THREE.Vector3();
 const oldPosition = new THREE.Vector3();
 const oldOrientation = new THREE.Quaternion();
 const newOrientation = new THREE.Quaternion();
-const VERSION = "30";
+const VERSION = "32";
 const velocity = new THREE.Vector3(0, 0, 0);
 let playerAngle = 0;
 
@@ -20,8 +20,8 @@ AFRAME.registerComponent('thumbstick-moving', {
         this.el.addEventListener('thumbstickmoved', this.handleThumbstick);
     },
     handleThumbstick: function (evt) {
-        velocity.z = evt.detail.y / 10;
-        velocity.x = evt.detail.x / 10;
+        velocity.z = evt.detail.y / 20;
+        velocity.x = evt.detail.x / 20;
     },
     tick: function () {
         this.updatePlayerPosition();
@@ -51,7 +51,7 @@ AFRAME.registerComponent('thumbstick-rotating', {
         this.el.addEventListener('thumbstickmoved', this.handleThumbstick);
     },
     handleThumbstick: function (evt) {
-        playerAngle -= evt.detail.x / 10;
+        playerAngle -= evt.detail.x / 20;
     },
     tick: function () {
         this.updatePlayerDirection();
